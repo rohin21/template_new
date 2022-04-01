@@ -1,14 +1,9 @@
-from fastapi import FastAPI
 import graphene
 from starlette_graphene3 import GraphQLApp, make_graphiql_handler
+from starlette.applications import Starlette
+from .GraphQL import schema
 
-from . import models
-from .schemas import User,Item
-from .database import SessionLocal
+app = Starlette()
+schema = graphene.Schema(query=schema.Query)
 
-app = FastAPI()
-
-@app.get("/")
-def index():
-    return "Hi"
-
+app.mount("/", GraphQLApp(schema, on_get=make_graphiql_handler()))  # Graphiql IDE
