@@ -7,3 +7,4 @@ app = Starlette()
 schema = graphene.Schema(query=schema.Query)
 
 app.mount("/", GraphQLApp(schema, on_get=make_graphiql_handler()))  # Graphiql IDE
+
